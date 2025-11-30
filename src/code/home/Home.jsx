@@ -16,11 +16,21 @@ function Home() {
 
     return (
         <div className="main-container">
-            <h1>모그리지에 오신 것을 환영합니다!</h1>
-            <p>펜은 들었는데 그릴 게 생각나지 않을 때, 모그리지를 이용하세요.</p>
+            <div className="main-intro">
+                <h1>모그리지에 오신 것을 환영합니다!</h1>
+                <p>모그리지는 이런 분들께 추천 드립니다.</p>
+                <ul>
+                    <li>펜을 들어도 뭘 그려야 할 지 막막하신 분들</li>
+                    <li>그림 창작에 어려움을 겪으시는 분들</li>
+                    <li>그림쟁이에게 유용한 기능들이 한 곳에 모인 사이트를 찾고 계신 분들</li>
+                </ul>
+            </div>
+
+            {/*<div className={"content-title"}>*/}
+            {/*    <h1>모그리지가 제공하는 다양한 기능들</h1>*/}
+            {/*</div>*/}
 
             <div className={"main-content-container"}>
-
                 {/* html 처럼 그냥 onClick=move()라고 쓰면 무한 루프가 발생한다. 버튼 누름 여부와 관계없이 브라우저가 실행해야 하는 메소드로 인식하기 때문이다.*/}
                 <div className={"content-box"} onClick={() => move("/croquis")}>
                     <div className={"image"}>
@@ -30,7 +40,7 @@ function Home() {
                         <h1>크로키 연습 페이지로 이동</h1>
                     </div>
                     <div className={"content"}>
-                        손그림 연습엔 크로키가 제격
+                        워밍업 & 손그림 연습
                     </div>
                 </div>
 
@@ -54,7 +64,7 @@ function Home() {
                         <h1>색상 추천 페이지로 이동</h1>
                     </div>
                     <div className={"content"}>
-                        본인이 채색 고자라면 들어오세요.
+                        채색이 어려운 자 나에게로...
                     </div>
                 </div>
             </div>
