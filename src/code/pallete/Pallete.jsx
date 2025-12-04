@@ -2,8 +2,8 @@ import React from "react";
 
 function Pallete(){
     return(
-      <div class={"main-container"}>
-          <div class={"title"}>색상 추천</div>
+      <div className={"main-container"}>
+          <div className={"title"}>색상 추천</div>
       </div>
     );
 }

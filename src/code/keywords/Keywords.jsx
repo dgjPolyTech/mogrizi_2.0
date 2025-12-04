@@ -2,8 +2,8 @@ import React from "react";
 
 function Keywords(){
     return (
-        <div class={"main-container"}>
-            <div class={"title"}>
+        <div className={"main-container"}>
+            <div className={"title"}>
                 키워드 추천 페이지
             </div>
         </div>
