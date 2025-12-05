@@ -1,50 +1,85 @@
 import React, {useState, useEffect} from "react";
 
 function Croquis_view(props){
+    // require = 폴더 안의 파일 중 설정한 규격에 맞는 파일들만 가져옴.
+    // assets 안에 .png 파일들 목록 가져옴.
+    const imgContext = require.context("../assets", true, /\.png$/);
+
     const assets_url = [
         {
             name: "casual",
-            url: "../code/assets/casual"
+            url: "../assets/casual"
         },
         {
             name: "sports",
-            url: "../code/assets/sports"
+            url: "../assets/sports"
         },
         {
             name: "action",
-            url: "../code/assets/action"
+            url: "../assets/action"
         }
     ];
 
-    // 난이도에 따른 랜덤 이미지 표출 함수
-    const croquis_imgs = () => {
-        let diff = props.difficult;
-        let cate = props.category;
+    const [currImg, setCurrImg] = useState("");
+    const [timer, setTimer] = useState(0);
 
-        let result_url = "";
+    //
+    const change_img = () => {
+        // require로 긁어온 폴더 안의 파일 경로들을 모두 가져옴.
+        const allKeys = imgContext.keys();
 
+        // 조건에 맞는 파일만 validKeys에 들어감.
+        const validKeys = allKeys.filter((path) => {
+            // 주제 경로 설정하는 로직
+            // 삼항연산자를 or 방식으로 쓴 것. or 조건은 앞의 조건이 true면 뒤는 실행 안하는 원리를 이용한 것이라고 함.
+            // 따라서 all이 true면 그냥 넘어가게 되는 것
+            const isCategoryMatch = props.category === 'all' || path.includes(props.category);
 
-        // 주제가 all(전체)면 완전 랜덤 이미지 경로를 출력한다.
-        if(cate === "all") {
-            let cate =  Math.floor(Math.random());
-            // let cate = 리액트에서 랜덤값 어케뽑아?
-            // 이미지 이름 첫번째 자리 숫자(난이도 의미)
-            // let diff_no =
-            // 이미지 이름 두번째 자리 숫자(이미지 자체 번호)
-            // let idx_no =
-            // 랜덤함수 이용해 assets_url에서 name랜덤 뽑기/diff_no/idx_no 이렇게 조합할 것
-            result_url = assets_url["sports"].url;
+            // 여기도 마찬가지로 difficult가 0이면 그냥 넘어감
+            const isDiffMatch = props.difficult === 0 || path.includes(`/${props.difficult}_`);
+
+            return isCategoryMatch && isDiffMatch;
+        });
+
+        // 이미지 없으면 경고 출력
+        if (validKeys.length === 0) {
+            console.log("조건에 맞는 이미지가 없습니다. (설정: ", props.category, props.difficult, ")");
+            return;
         }
+
+        const randomIdx = Math.floor(Math.random() * validKeys.length);
+        const selectedKey = validKeys[randomIdx];
+
+        const finalImage = imgContext(selectedKey);
+
+        setCurrImg(finalImage);
     };
 
+    // timer가 다 돌아갈 때마다 이미지를 바꿔주면서 state 발동 => 화면을 다시 그리게 됨.
+    useEffect(() => {
+        change_img();
 
-    return setInterval(() =>
-        <div className={"main-container_view"}>
-            <div className={"content_view"}>
+        const timer = setInterval(() => {
+            setCurrImg("../code/assets/casual/1_1.png");
+        }, props.time);
+
+        // clearInterval = setInterval 초기화 해주는 함수라고 함.
+        return () => clearInterval(timer)
+    }, );
+
+    return (
+        <div className={"main-container-view"}>
+            <div className={"content-view"}>
+                {currImg ? (
+                    <img src={currImg} alt="크로키 자료" style={{ maxHeight: "500px", maxWidth: "100%" }} />
+                ):(
+                    <p>이미지가 로딩 중...</p>
+                )}
             </div>
-            <div>PASS</div>
+            <button>STOP</button>
+            <button>PASS</button>
         </div>
-    , props.interval);
+    )
 }
 
 export default Croquis_view;
