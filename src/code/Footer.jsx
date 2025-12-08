@@ -13,7 +13,7 @@ function Footer() {
 
     return (
         <footer style={footerStyle}>
-            <p>Footer입니다.</p>
+            <p>Copyright © 2025 Mogriji. All rights reserved.</p>
         </footer>
     );
 }
