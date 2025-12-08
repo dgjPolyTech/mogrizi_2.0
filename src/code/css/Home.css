@@ -1,13 +1,17 @@
 /* 전체적으로 넓이/높이를 % 단위로 잡되, min 최소값을 줘서 너무 작아지지는 않게 함. */
 
 html, body {
-    /* 정확히는 width는 안 줘도 되는데, 높이(height)는 줘야함. */
-    min-height: 100vh; /* 보여지는 화면 기준 최소 높이 100% 주기 */
+    min-height: 100vh; /* 보여지는 화면 기준 최소 높이를 100%로 주기 */
     margin: 0;
     padding: 0;
 
     display: flex; /* 자식 요소를 원하는 방향으로 정렬할 수 있게 해주는 핵심 속성 */
-    flex-direction: column; /* flex로 정렬되는 방향을 세로로 함. */
+    flex-direction: column; /* column(열)은 flex로 정렬되는 방향을 세로 기준으로 함.(열처럼) */
+    /*
+        a
+        b
+        c
+    */
 }
 
 
@@ -16,7 +20,7 @@ html, body {
     height: 100%;
 
     display: flex;
-    justify-content: center; /* 요소를 가운데로 정렬 */
+    justify-content: center;
     flex-direction: column;
 }
 
@@ -24,8 +28,16 @@ html, body {
     height: 40%;
 
     display: flex;
-    /*justify-content: center;*/
     flex-direction: column;
+
+    /* align-items는 flex-direction으로 정한 주축과 반대되는 방향으로 정렬된다.*/
+    /* 정확히는 column이면 좌/우, row면 위/아래 */
+    /* 여기는 flex-direction이 column이니까, 세로를 기준으로 가운데(center)에 위치하게됨
+    왼   중   우
+         a
+         b(이렇게 위치하게 됨)
+         c
+    */
     align-items: center;
 
     margin-top: 2.5%;
@@ -34,15 +46,35 @@ html, body {
     border-bottom: 1px solid grey;
 }
 
+.home-intro-title {
+    font-size: 2.8rem;
+    font-weight: 700;
+    text-align: center;
+    color: #333; /* 기본 어두운 회색 */
+    margin-bottom: 25px;
+
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15); /* 말 그대로 텍스트 뒤에 그림자 효과. */
+}
+
+/* 위의 text-shadow 색상을 조절할 수 잇음. */
+.home-intro-title .highlight {
+    color: #FF6B6B; /* 예쁜 코랄색 포인트 */
+}
+
 .home-content-container {
     display: flex;
-    justify-content: center; /* 가운데 */
-    flex-direction: row; /* 가로 정렬 */
+    /* justify-content는 align-items와 반대로 flex-direction에 따라 요소를 배치함. 좌/우로 주게 되는 식임. */
+    /* 여기는 flex-direction이 row니까, 가로 기준 가운데에 주려고 justify-content를 쓴 거. */
+    justify-content: center;
+    flex-direction: row; /* row(행)은 flex로 정렬되는 방향을 가로를 기준으로 함(행처럼) */
+    /*
+        a b c
+    */
 
-   flex-wrap: wrap; /* 화면 축소시 요소가 잘리지 않고 재배치하게 해줌.*/
+    flex-wrap: wrap; /* 화면 축소시 요소가 잘리지 않고 재배치하게 해줌.*/
 
     /* flex 기반으로 요소 배치 시, margin보다 gap을 쓰는 게 좋다고 함. */
-    /* 화면 크기가 어떻든 무조건 20px만큼 띄워줌. */
+    /* right, top 등 방향 상관없이 무조건 요소 간 20px씩 띄어줌.  */
     gap: 20px
 }
 
@@ -51,7 +83,7 @@ html, body {
 .home-content {
     width: 20%;
     min-width: 250px;
-    height: auto;
+    height: auto; /* 높이를 부모 요소의 크기에 자동으로 맞춤 */
     background-color: white;
     border: 1px solid #e0e0e0;
     border-radius: 12px;
@@ -61,10 +93,10 @@ html, body {
 
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 
-    /* 위치 이동(transform)과 그림자(box-shadow)가 변할 때 0.3초 동안 부드럽게 해라 */
+    /* transform(형태 변환)할 때, 부드럽게 하거나 빠르게 전환되는 효과와 함께 그림자 효과를 줌 */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 
-    /* 마우스 올리면 커서 모양을 변경할 수 있다. */
+    /* 마우스 올렸을 때 커서 모양을 변경할 수 있다. */
     cursor: pointer;
 }
 

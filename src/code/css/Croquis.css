@@ -1,10 +1,12 @@
 /* src/code/css/Croquis.css */
 
+
 .croquis-container {
     max-width: 800px;
     margin: 0 auto;
     padding: 40px 20px;
     font-family: 'Noto Sans KR', sans-serif;
+    /* 기본적으로 noto sans 쓰되, 없거나 안나오면 sans-serif 쓰라는 의미*/
     color: #333;
 }
 
@@ -168,7 +170,6 @@
     box-shadow: 0 2px 10px rgba(0,0,0,0.2);
 }
 
-/* === 7. 뷰어 버튼 그룹 === */
 .croquis-button-group {
     display: flex;
     justify-content: center;
@@ -204,4 +205,21 @@
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
+}
+
+/* 화면 폭이 768px 이하(태블릿/모바일)일 때만 실행되는 미디어 쿼리*/
+@media (max-width: 768px) {
+
+    .croquis-container {
+        padding: 20px 10px;
+    }
+
+    .croquis-view-box {
+        width: 100%; /* 100% 그대로 유지해도, padding 속성 때문에 화면 끝이랑 간격 벌어짐. */
+        height: 400px;
+    }
+
+    .croquis-title h1 {
+        font-size: 1.8rem;
+    }
 }

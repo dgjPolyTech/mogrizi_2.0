@@ -3,17 +3,16 @@ import Croquis_view from "./Croquis_view";
 import "../css/Croquis.css";
 
 function Croquis(){
+    // croquis_view에게 보내야 할 사용자가 선택한 주제, 입력한 시간, 시작 여부, 난이도 값을 useState로 정의.
     const [category, setCategory] = useState("all");
     const [time, setTime] = useState("");
     const [isStart, setIsStart] = useState(false);
     const [difficult, setDifficult] = useState(1);
 
+    // 시간 변경 시마다, time state 값을 변경함.
     const handleTimeChange = (event) => {
         let value = event.target.value;
-        if (!/^\d*$/.test(value)) {
-            alert("숫자값을 입력해주십시오.");
-            return;
-        }
+
         if (Number(value) > 6000) {
             alert("최대 6000초(100분)까지 가능합니다.");
             return;
@@ -21,24 +20,32 @@ function Croquis(){
         setTime(value);
     };
 
+    // selectBox에서 옵션 변경 시마다 category 변경
     const handleOptionChange = (event) => {
         setCategory(event.target.value);
     };
 
-
+    // 라디오 버튼으로 다른 거 선택할 때마다 difficult 변경
     const handleDifficultChange = (event) => {
         setDifficult(Number(event.target.value));
     };
 
-
+    // start 버튼 눌렀을 시 발동.
     const handleStart = (event) => {
-        event.preventDefault(); // 새로고침 방지
+        event.preventDefault(); // 새로고침 방지.
 
+        // 시간 설정은 사용자가 선택하는게 아니라 입력하는 값이기에 유효성 검사를 진행함.
         if(time === "" || Number(time) <= 0){
             alert("시간을 올바르게 입력해주십시오.");
             return;
         }
 
+        if (!/^\d*$/.test(time)) {
+            alert("시간을 올바르게 입력해주십시오.");
+            return;
+        }
+
+        // isStart true로 만듦과 동시에, 요소별 disabled 값에 영향을 줘서 크로키 진행 중에는 입력 추가로 못하게 방지함.
         setIsStart(true);
     };
 
@@ -88,7 +95,7 @@ function Croquis(){
                                             type="radio" name="difficult" value={1}
                                             checked={difficult === 1}
                                             onChange={handleDifficultChange}
-                                            disabled={isStart} /* ⭐ 비활성화 */
+                                            disabled={isStart}
                                         />
                                     </label>
 
@@ -133,7 +140,7 @@ function Croquis(){
                 </div>
             </form>
 
-            {/* 게임 화면 (isStart가 true일 때만 보임) */}
+            {/* croquis_view 영역은 isStart가 true일 떄만(=크로키 진행 중일 때만) 보이게 설정함. */}
             {isStart &&
                 <div className="croquis-view-container">
                     <Croquis_view

@@ -11,13 +11,10 @@ function Croquis_view(props){
     // 이미지 변경 함수
     const change_img = useCallback(() => {
         const allKeys = imgContext.keys();
-        
-
         const validKeys = allKeys.filter((path) => {
     
             const isCategoryMatch = props.category === 'all' || path.includes(props.category);
 
-            // 2. 난이도 체크 (윈도우/맥 호환성 강화)
             const diffPattern = new RegExp(`[\\/\\\\]${props.difficult}_|^${props.difficult}_`);
             const isDiffMatch = props.difficult === 0 || diffPattern.test(path);
 

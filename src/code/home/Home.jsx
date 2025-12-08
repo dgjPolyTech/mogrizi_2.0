@@ -4,30 +4,28 @@ import { useNavigate } from "react-router-dom";
 import "../css/Home.css";
 
 // 리액트는 경로명 그대로 써서는 안되고 이렇게 변수화 해서 써야한다.
+// 정확히는 public 폴더에 넣지 않는 지금과 같은 구조에서는 이렇게 써야하는데, 이미지를 다시 옮기기 곤란하여 이런 방식을 취함.
 import main_CroquisImg from "../assets/croquis_img.png";
 
 function Home() {
-    // 페이지 이동 감시 state
-    const [page, setPage] = useState(null);
-
     // useNavigate: 특정 상황에서 url을 변경하여 페이지 이동 시켜준다.
     const navigate = useNavigate();
 
-
+    // 매개변수로 받은 path url로 페이지를 옮겨준다.
     const move = (path) => {
         navigate(path);
     };
 
+    // 매개변수로 받은 페이지명을 토대로 "~는 아직 준비 중입니다."라는 문구 출력.
     const stop = (value) => {
         alert(value+"는 아직 준비 중입니다!");
-        return;
     }
 
     return (
         <div className="home-container">
             <div className="home-intro">
-                <h1>모그리지에 오신 것을 환영합니다!</h1>
-                <p>모그리지는 이런 분들께 추천 드립니다.</p>
+                <h1 className={"home-intro-title"}>모그리지에 오신 것을 환영합니다!</h1>
+                <h2>모그리지는 이런 분들께 추천 드립니다.</h2>
                 <ul>
                     <li>펜을 들어도 뭘 그려야 할 지 막막하신 분들</li>
                     <li>그림 창작에 어려움을 겪으시는 분들</li>
@@ -49,12 +47,13 @@ function Home() {
                     </div>
                 </div>
 
+                {/* 키워드 및 색상 추천 페이지는 추후 구현 예정. */}
                 <div className={"home-content"} onClick={() => stop("키워드 추천 페이지")}>
                     <div className={"image"}>
                         comming soon...
                     </div>
                     <div className={"title"}>
-                        <h1>키워드 추천 페이지로 이동</h1>
+                        <h1>키워드 추천 페이지(준비 중)</h1>
                     </div>
                     <div className={"content"}>
                         아이디어를 제공해 드립니다!
@@ -66,7 +65,7 @@ function Home() {
                         comming soon...
                     </div>
                     <div className={"title"}>
-                        <h1>색상 추천 페이지(</h1>
+                        <h1>색상 추천 페이지(준비 중)</h1>
                     </div>
                     <div className={"content"}>
                         채색이 어려운 자 나에게로...
